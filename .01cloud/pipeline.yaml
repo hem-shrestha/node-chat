@@ -12,3 +12,9 @@ spec:
         workspace: workspace
       taskRef:
         name: hello
+    - name: docker-run
+      workspaces:
+      - name: workspace
+        workspace: workspace
+      taskRef:
+        name: docker-run
