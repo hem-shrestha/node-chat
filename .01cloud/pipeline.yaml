@@ -1,0 +1,14 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: zro-pipeline
+spec:
+  workspaces:
+  - name: workspace
+  tasks:
+    - name: hello
+      workspaces:
+      - name: workspace
+        workspace: workspace
+      taskRef:
+        name: hello
