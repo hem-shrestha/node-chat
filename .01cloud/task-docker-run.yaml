@@ -4,7 +4,7 @@ metadata:
   name: docker-run
 spec:
   workspaces:
-    - name: workspace  
+    - name: workspace
   steps:
     - name: docker-run
       image: docker
@@ -12,7 +12,11 @@ spec:
         #!/bin/sh
         cd /workspace/workspace/
         until docker ps; do sleep 3; done;
-        docker run --rm -it hello-world     
+        printf "from ubuntu:18.04\nrun apt-get update\nrun apt-get install -y curl\nrun curl -s google.com\ncmd curl -s https://www.google.com" > Dockerfile
+        docker build . -t google
+        echo "Successfully build image"
+        docker run google
+        echo "Completed"
       volumeMounts:
       - mountPath: /var/run/
         name: dind-socket
@@ -31,4 +35,3 @@ spec:
       emptyDir: {}
     - name: dind-socket
       emptyDir: {}
-
