@@ -16,6 +16,7 @@ spec:
       workspaces:
       - name: workspace
         workspace: workspace
-      runAfter: hello
+      runAfter: 
+        - hello
       taskRef:
         name: docker-run
