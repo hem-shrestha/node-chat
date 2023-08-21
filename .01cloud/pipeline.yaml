@@ -42,11 +42,3 @@ spec:
         - git-clone
       taskRef:
         name: test
-    - name: docker
-      workspaces:
-      - name: workspace
-        workspace: workspace
-      runAfter: 
-        - lint
-      taskRef :
-        name: docker-run
