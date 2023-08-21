@@ -18,18 +18,10 @@ spec:
   workspaces:
   - name: workspace
   steps:
-  - name: check-directory
-    image: alpine
-    script: |
-      if [ -d "$(workspaces.workspace.path)" ] && [ -z "$(ls -A $(workspaces.workspace.path))" ]; then
-        echo "Directory is empty, proceeding with git clone..."
-      else
-        echo "Directory is not empty, skipping git clone..."
-        exit 0
-      fi
   - name: git-clone
     image: alpine/git
     script: |
+      echo revision :: "$(params.revision)", url :: "$(params.url)"
       git clone -b "$(params.revision)" "$(params.url)" $(workspaces.workspace.path)
   - name: list-contents
     image: alpine
