@@ -22,12 +22,12 @@ spec:
     image: alpine/git
     script: |
       echo revision :: "$(params.revision)", url :: "$(params.url)"
-      git clone -b "$(params.revision)" "$(params.url)" $(workspaces.workspace.path)
+      git clone -b "$(params.revision)" "$(params.url)" $(workspaces.workspace.path)/app
   - name: list-contents
     image: alpine
     script: |
       echo "Contents of the workspace directory:"
-      ls -al $(workspaces.workspace.path)
+      ls -al $(workspaces.workspace.path)/app
 
 ---
 apiVersion: tekton.dev/v1
@@ -41,8 +41,8 @@ spec:
     - name: list
       image: alpine
       script: |
-        echo "project from path $(workspaces.workspace.path)"
-        ls -al $(workspaces.workspace.path)
+        echo "project from path $(workspaces.workspace.path)/app"
+        ls -al $(workspaces.workspace.path)/app
         sleep 1
 
 ---
@@ -57,7 +57,7 @@ spec:
     - name: lint
       image: alpine
       script: |
-        cd $(workspaces.workspace.path)
+        cd $(workspaces.workspace.path)/app
         echo "Lint task start..."
         sleep 5
         echo "Lint completed"
@@ -75,7 +75,7 @@ spec:
     - name: test
       image: alpine
       script: |
-        cd $(workspaces.workspace.path)
+        cd $(workspaces.workspace.path)/app
         echo "Test task init..."
         sleep 7
         echo "Test completed"
